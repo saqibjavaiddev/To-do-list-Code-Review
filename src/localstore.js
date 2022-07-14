@@ -3,6 +3,7 @@ export default (() => {
     item.index = index;
     return item;
   });
+
   // Store Tasks in Local Storage //
   const storetask = (todoList) => {
     localStorage.setItem('todo-list', JSON.stringify(todoList));

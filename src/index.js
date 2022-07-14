@@ -4,13 +4,10 @@ import completed from './completedtasks.js';
 import displayhtml from './displayhtml.js';
 
 const todoList = [];
-
 const rendercode = () => {
   const oldList = document.querySelectorAll('.todoItem');
   [...oldList].forEach((e) => e.remove());
-  renderUI();
 };
-
 const renderUI = () => {
   if (!JSON.parse(localStorage.getItem('todo-list'))) {
     localstore.storetask(localstore.sortindex(todoList));
@@ -37,12 +34,14 @@ const renderUI = () => {
       event.target.nextSibling.nextSibling.classList.remove('hideellipsis');
     });
   });
+
   // Trash task from list
   const trashes = document.querySelectorAll('.fa-trash');
   [...trashes].forEach((trash) => {
     trash.addEventListener('click', (event) => {
       localstore.remove(event);
       rendercode();
+      renderUI();
     });
   });
 };
@@ -53,6 +52,7 @@ input.addEventListener('keyup', (event) => {
     localstore.add(event);
     event.target.value = '';
     rendercode();
+    renderUI();
   }
 });
 // Remove Completed Tasks
@@ -61,6 +61,7 @@ btn.addEventListener('click', (e) => {
   e.preventDefault();
   localstore.clearCompleted();
   rendercode();
+  renderUI();
 });
 
 renderUI();
