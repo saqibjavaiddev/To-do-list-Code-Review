@@ -5,6 +5,12 @@ import displayhtml from './displayhtml.js';
 
 const todoList = [];
 
+const rendercode = () => {
+  const oldList = document.querySelectorAll('.todoItem');
+  [...oldList].forEach((e) => e.remove());
+  renderUI();
+};
+
 const renderUI = () => {
   if (!JSON.parse(localStorage.getItem('todo-list'))) {
     localstore.storetask(localstore.sortindex(todoList));
@@ -36,9 +42,7 @@ const renderUI = () => {
   [...trashes].forEach((trash) => {
     trash.addEventListener('click', (event) => {
       localstore.remove(event);
-      const oldList = document.querySelectorAll('.todoItem');
-      [...oldList].forEach((e) => e.remove());
-      renderUI();
+      rendercode();
     });
   });
 };
@@ -48,9 +52,7 @@ input.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) { // Returns Enter Key
     localstore.add(event);
     event.target.value = '';
-    const oldList = document.querySelectorAll('.todoItem');
-    [...oldList].forEach((e) => e.remove());
-    renderUI();
+    rendercode();
   }
 });
 // Remove Completed Tasks
@@ -58,9 +60,7 @@ const btn = document.querySelector('.btn');
 btn.addEventListener('click', (e) => {
   e.preventDefault();
   localstore.clearCompleted();
-  const oldList = document.querySelectorAll('.todoItem');
-  [...oldList].forEach((e) => e.remove());
-  renderUI();
+  rendercode();
 });
 
 renderUI();
